@@ -44,6 +44,9 @@ set hlsearch
 " Makes search act like search in modern browsers
 set incsearch 
 
+" Turn off search highlighting with <CR> (carriage-return)
+nnoremap <CR> :nohlsearch<CR><CR>
+
 " Don't redraw while executing macros (good performance config)
 set lazyredraw 
 
@@ -119,7 +122,6 @@ try
 catch
 endtry
 
-<<<<<<< HEAD
 " Always show the status line
 set laststatus=2
 
@@ -127,9 +129,3 @@ set laststatus=2
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-=======
-
-" Always show the status line
-set laststatus=2
-
->>>>>>> 2413b5b... vimrc
