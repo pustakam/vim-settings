@@ -83,7 +83,7 @@ else
     colorscheme pablo
 endif
 
-set guifont=Source\ Code\ Pro\ Regular\ 11
+set guifont=Source\ Code\ Pro\ Regular\ 10
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
