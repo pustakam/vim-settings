@@ -1,5 +1,9 @@
 execute pathogen#infect()
 
+" Automatically start NERDTree if no files are specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 " Sets how many lines of history VIM has to remember
 set history=500
 
@@ -13,11 +17,16 @@ set autoread
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
-" Turn on the WiLd menu
+" Turn on the Wild menu
 set wildmenu
 
 " Ignore compiled files
-set wildignore+=*/.git/*
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=*/.git/*,*/.DS_Store
+else
+    set wildignore+=.git\*
+endif
 
 "Always show current position
 set ruler
@@ -75,15 +84,18 @@ syntax enable
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
-
+    set t_Co=256
+    set guitablabel=%M\ %t
     set background=dark
     colorscheme solarized
+    set guifont=Source\ Code\ Pro\ Regular\ 10
 else
     set background=light
     colorscheme pablo
+    "colorscheme desert
 endif
 
-set guifont=Source\ Code\ Pro\ Regular\ 10
+set antialias
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -125,7 +137,17 @@ endtry
 " Always show the status line
 set laststatus=2
 
-" Automatically start NERDTree if no files are specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
 
