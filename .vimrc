@@ -80,6 +80,8 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable 
 
+set antialias
+
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -88,14 +90,16 @@ if has("gui_running")
     set guitablabel=%M\ %t
     set background=dark
     colorscheme solarized
-    set guifont=Source\ Code\ Pro\ Regular\ 10
+    if has("gui_macvim")
+        set guifont=SourceCodePro-Regular:h13
+    else
+        set guifont=Source\ Code\ Pro\ Regular\ 10
+    endif
 else
-    set background=light
-    colorscheme pablo
-    "colorscheme desert
+    set background=dark
+    "colorscheme pablo
+    colorscheme desert
 endif
-
-set antialias
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
